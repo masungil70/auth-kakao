@@ -1,6 +1,5 @@
 package kr.or.kosa.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,18 +11,19 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import jakarta.servlet.DispatcherType;
 import kr.or.kosa.config.auth.AuthFailureHandler;
 import kr.or.kosa.config.auth.AuthSucessHandler;
-import kr.or.kosa.config.auth.PrincipalDetailsService;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity // 시큐리티 필터 등록
 // 특정 페이지에 특정 권한이 있는 유저만 접근을 허용할 경우 권한 및 
 // 인증을 미리 체크하겠다는 설정을 활성화한다.
+@RequiredArgsConstructor
 public class SecurityConfig {
 	
-	@Autowired
-	private AuthSucessHandler authSucessHandler;
-	@Autowired
-	private AuthFailureHandler authFailureHandler;
+	//@Autowired
+	final private AuthSucessHandler authSucessHandler;
+	//@Autowired
+	final private AuthFailureHandler authFailureHandler;
 	
 	// BCryptPasswordEncoder는 Spring Security에서 제공하는 비밀번호 암호화 객체 (BCrypt라는 해시 함수를 이용하여 패스워드를 암호화 한다.)
 	// 회원 비밀번호 등록시 해당 메서드를 이용하여 암호화해야 로그인 처리시 동일한 해시로 비교한다.
@@ -40,7 +40,7 @@ public class SecurityConfig {
         http.csrf(csrf ->csrf.disable())	// csrf 사용불가능 
 			.authorizeHttpRequests(matchers -> matchers
 				//controller에서 jsp view로 forward 하는 경우는 인증 필요없음					
-				.dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.INCLUDE, DispatcherType.ERROR, DispatcherType.REQUEST).permitAll()   
+				.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()   
 				.requestMatchers("/", "/auth/**", "/api/auth/**", "/js/**","/css/**","/images/**").permitAll() // 해당 경로들은 접근을 허용
 				.requestMatchers("/user/**").hasAnyAuthority("ROLE_USER", "ROLE_MANAGER", "ROLE_ADMIN") //여러개의 권한 중 하나라도 있으면 성공 
 				.requestMatchers("/manager/**").hasAnyAuthority("ROLE_MANAGER","ROLE_ADMIN") //MANAGER, ADMIN 권한만 허가 됨 

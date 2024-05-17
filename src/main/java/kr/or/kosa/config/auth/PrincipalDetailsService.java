@@ -8,12 +8,14 @@ import org.springframework.stereotype.Service;
 
 import kr.or.kosa.dao.MemberDAO;
 import kr.or.kosa.model.MemberVO;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class PrincipalDetailsService implements UserDetailsService {
 
-	@Autowired
-	private MemberDAO memberDAO;
+	//@Autowired
+	final private MemberDAO memberDAO;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

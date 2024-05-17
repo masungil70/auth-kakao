@@ -12,15 +12,17 @@ import kr.or.kosa.dao.MemberDAO;
 import kr.or.kosa.exception.ExistMemberException;
 import kr.or.kosa.exception.NotExistMemberException;
 import kr.or.kosa.model.MemberVO;
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class MemberService  {
 
-	@Autowired
-	private MemberDAO memberDAO;
+	//@Autowired
+	final private MemberDAO memberDAO;
 	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	//@Autowired
+	final private PasswordEncoder passwordEncoder;
 
 
 	public MemberVO findByEmail(String email) {

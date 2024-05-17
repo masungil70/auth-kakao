@@ -11,12 +11,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import kr.or.kosa.dao.MemberDAO;
+import lombok.RequiredArgsConstructor;
 
 @Component
+@RequiredArgsConstructor
 public class AuthSucessHandler extends SimpleUrlAuthenticationSuccessHandler {
 	
-	@Autowired
-	private MemberDAO memberDAO;
+//	@Autowired
+	final private MemberDAO memberDAO;
 	
 	@Override
     public void onAuthenticationSuccess(

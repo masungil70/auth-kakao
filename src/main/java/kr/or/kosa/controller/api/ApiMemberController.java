@@ -15,12 +15,14 @@ import kr.or.kosa.config.auth.PrincipalDetails;
 import kr.or.kosa.dto.ResponseDTO;
 import kr.or.kosa.model.MemberVO;
 import kr.or.kosa.service.MemberService;
+import lombok.RequiredArgsConstructor;
 
 @RestController
+@RequiredArgsConstructor
 public class ApiMemberController {
 	
-	@Autowired
-	MemberService memberService;
+	//@Autowired
+	final MemberService memberService;
 	
 	@PostMapping("/api/auth/save")
 	public ResponseEntity<ResponseDTO> save(@RequestBody MemberVO memberVO) { // email, pwd

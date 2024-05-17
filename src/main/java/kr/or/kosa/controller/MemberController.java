@@ -26,12 +26,14 @@ import kr.or.kosa.model.KakaoProfile;
 import kr.or.kosa.model.MemberVO;
 import kr.or.kosa.model.OAuthToken;
 import kr.or.kosa.service.MemberService;
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor
 public class MemberController {
 	
-	@Autowired
-	MemberService memberService;
+	//@Autowired
+	final MemberService memberService;
 	
 	@GetMapping("/")
 	public String main(Model model) {
@@ -138,7 +140,7 @@ public class MemberController {
 		}
 		
 		// User 오브젝트 : username, password, email
-		System.out.println("카카오 아이디(번호) : "+kakaoProfile.getId());
+		//System.out.println("카카오 아이디(번호) : "+kakaoProfile.getId());
 		System.out.println("카카오 이메일 : "+kakaoProfile.getKakao_account().getEmail());
 		
 		MemberVO kakaoMember = MemberVO.builder()
